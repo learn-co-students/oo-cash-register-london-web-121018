@@ -14,10 +14,8 @@ attr_accessor :total, :discount, :items
     self.total += (price * quantity)
     @last_item_price = price
     count = 0
-    begin
-      self.items << item
-      count += 1
-    end until count == quantity
+    self.items << [item] * quantity
+    self.items.flatten!
   end
 
   def apply_discount
@@ -30,7 +28,7 @@ attr_accessor :total, :discount, :items
   end
 
   def void_last_transaction
-    self.total -=@last_item_price
+    self.total -= @last_item_price
   end
 
 end
